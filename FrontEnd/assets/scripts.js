@@ -1,8 +1,9 @@
 // Get elements from DOM
 const elementGallery = document.querySelector('.gallery')
+const elementsFilter = document.querySelectorAll('.filter')
 
 // Get JSON Array
-getData(baseUrl + works).then((data) => {
+getData(baseUrl + works, 0).then((data) => {
     createHTML(data)
 })
 
@@ -17,3 +18,21 @@ function createHTML(array) {
         elementGallery.innerHTML = contentHTML
     })
 }
+
+// Remove class selected on all buttons
+function removeSelected() {
+    elementsFilter.forEach((button) => {
+        button.classList.remove('selected')
+    })
+}
+
+// Add listeners to filters
+elementsFilter.forEach((button, index) => {
+    button.addEventListener('click', function (e) {
+        removeSelected()
+        button.classList.add('selected')
+        getData(baseUrl + works, index).then((data) => {
+            createHTML(data)
+        })
+    })
+})

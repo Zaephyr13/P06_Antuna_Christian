@@ -215,6 +215,42 @@ li:hover {
 .gallery img {
     width: 100%;
 }
+
+.filters {
+    position: relative;
+    left: 25%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 585px;
+    height: 37px;
+    font-family: Syne;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;
+    margin-bottom: 2em;
+}
+.filters .filter {
+    cursor: pointer;
+    width: -moz-fit-content; /* Firefox */
+    width: fit-content;
+    padding: 7px 15px;
+    border-radius: 60px;
+    color: #1d6154;
+    border: 1px solid #1d6154;
+}
+.filters .selected {
+    cursor: pointer;
+    width: -moz-fit-content; /* Firefox */
+    width: fit-content;
+    padding: 7px 15px;
+    border-radius: 60px;
+    color: white;
+    background-color: #1d6154;
+    border: 1px solid #1d6154;
+}
+
 #contact {
     width: 50%;
     margin: auto;

@@ -6,6 +6,11 @@ exports.findAll = async (req, res) =>  {
 	return res.status(200).json(works);
 }
 
+// exports.findById = async (req, res) => {
+//     const works = await Works.findById({ include: 'category' })
+//     return res.status(200).json(works)
+// }
+
 exports.create = async (req, res) => {
 	const host = req.get('host');
 	const title = req.body.title;
