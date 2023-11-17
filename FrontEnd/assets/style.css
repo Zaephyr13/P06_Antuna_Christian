@@ -91,6 +91,7 @@ video {
     font: inherit;
     vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -105,17 +106,26 @@ nav,
 section {
     display: block;
 }
+
 body {
     line-height: 1;
 }
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
 ol,
 ul {
     list-style: none;
 }
+
 blockquote,
 q {
     quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -123,10 +133,12 @@ q:after {
     content: '';
     content: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
 /** end reset css**/
 body {
     max-width: 1140px;
@@ -134,11 +146,13 @@ body {
     font-family: 'Work Sans';
     font-size: 14px;
 }
+
 header {
     display: flex;
     justify-content: space-between;
     margin: 50px 0;
 }
+
 section {
     margin: 50px 0;
 }
@@ -152,7 +166,7 @@ h1 {
     color: #b1663c;
 }
 
-h1 > span {
+h1>span {
     font-family: 'Work Sans';
     font-size: 10px;
     letter-spacing: 0.1em;
@@ -164,26 +178,40 @@ h2 {
     font-size: 30px;
     color: #1d6154;
 }
+
 nav ul {
     display: flex;
     align-items: center;
     list-style-type: none;
 }
+
 nav li {
     padding: 0 10px;
     font-size: 1.2em;
+    cursor: pointer;
 }
 
 li:hover {
     color: #b1663c;
 }
+
+.bold-link {
+    font-weight: 900;
+}
+
+.bold-link:hover {
+    color: black;
+}
+
 #introduction {
     display: flex;
     align-items: center;
 }
+
 #introduction figure {
     flex: 1;
 }
+
 #introduction img {
     display: block;
     margin: auto;
@@ -193,6 +221,7 @@ li:hover {
 #introduction article {
     flex: 1;
 }
+
 #introduction h2 {
     margin-bottom: 1em;
 }
@@ -200,10 +229,12 @@ li:hover {
 #introduction p {
     margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
     text-align: center;
     margin-bottom: 1em;
 }
+
 .gallery {
     width: 100%;
     display: grid;
@@ -223,7 +254,7 @@ li:hover {
     justify-content: space-evenly;
     width: 585px;
     height: 37px;
-    font-family: Syne;
+    font-family: 'Syne';
     font-size: 16px;
     font-weight: 700;
     line-height: 19px;
@@ -231,18 +262,22 @@ li:hover {
     text-align: center;
     margin-bottom: 2em;
 }
+
 .filters .filter {
     cursor: pointer;
-    width: -moz-fit-content; /* Firefox */
+    width: -moz-fit-content;
+    /* Firefox */
     width: fit-content;
     padding: 7px 15px;
     border-radius: 60px;
     color: #1d6154;
     border: 1px solid #1d6154;
 }
+
 .filters .selected {
     cursor: pointer;
-    width: -moz-fit-content; /* Firefox */
+    width: -moz-fit-content;
+    /* Firefox */
     width: fit-content;
     padding: 7px 15px;
     border-radius: 60px;
@@ -251,35 +286,67 @@ li:hover {
     border: 1px solid #1d6154;
 }
 
-#contact {
+#contact,
+#login {
     width: 50%;
     margin: auto;
 }
-#contact > * {
+
+#login {
+    margin-top: 10rem;
+}
+
+#contact>*,
+#login>* {
     text-align: center;
 }
-#contact h2 {
+
+#contact h2,
+#login h2 {
     margin-bottom: 20px;
 }
-#contact form {
+
+#contact form,
+#login form {
     text-align: left;
     margin-top: 30px;
     display: flex;
     flex-direction: column;
 }
 
-#contact input {
+#contact input,
+#login input {
     height: 50px;
     font-size: 1.2em;
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+
+#contact label,
+#login label {
     margin: 2em 0 1em 0;
 }
-#contact textarea {
+
+#contact textarea,
+#login textarea {
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#login .forgot-link {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: auto;
+    margin-bottom: 5rem;
+}
+
+#login .forgot-link:hover {
+    color: #b1663c;
 }
 
 input[type='submit'] {
@@ -291,6 +358,16 @@ input[type='submit'] {
     width: 180px;
     text-align: center;
     border-radius: 60px;
+    cursor: pointer;
+}
+
+input[type='submit']:hover {
+    background-color: #0E2F28;
+}
+
+.incorect {
+    color: red;
+    padding-top: 1rem;
 }
 
 footer nav ul {
