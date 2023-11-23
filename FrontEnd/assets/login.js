@@ -3,17 +3,21 @@ const buttonLog = document.getElementById('loginButton')
 const formLog = document.querySelector('.login-form')
 const elementEmail = document.getElementById('email')
 const elementPwd = document.getElementById('password')
-const elementWarn = document.querySelector('.incorrect')
 
 // Variables used in scripts
 let flag = 0 // To prevent multiple creation of "incorrect" elements
 
 // Refresh warning when user select Email or Password
-elementEmail.addEventListener('select', removeWarn())
-elementPwd.addEventListener('select', removeWarn())
+elementEmail.addEventListener('focus', () => {
+    removeWarn()
+})
+elementPwd.addEventListener('focus', () => {
+    removeWarn()
+})
 
 // Remove "incorrect" function
 function removeWarn() {
+    const elementWarn = document.querySelector('.incorrect')
     if (elementWarn !== null) {
         formLog.removeChild(elementWarn)
         flag = 0
@@ -33,7 +37,7 @@ if (buttonLog !== null) {
                     'http://localhost:5500/FrontEnd/index.html'
             } else if (flag === 0) {
                 const pElement = document.createElement('p')
-                pElement.classList.add('incorect')
+                pElement.classList.add('incorrect')
                 pElement.innerText =
                     'La combinaison "Utilisateur/Mot de Passe" est incorrecte.'
                 formLog.insertBefore(pElement, buttonLog)

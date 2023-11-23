@@ -1,32 +1,55 @@
 // Get elements from DOM
 const elementGallery = document.querySelector('.gallery')
+const elementModalGallery = document.querySelector('.mini-gallery')
 const elementsFilter = document.querySelectorAll('.filter')
 const buttonLog = document.getElementById('loginButton')
 const formLog = document.querySelector('.login-form')
 const elementEmail = document.getElementById('email')
 const elementPwd = document.getElementById('password')
 const elementLoglink = document.getElementById('log-link')
-let userLog = false
+const elementHeader = document.querySelector('header')
 
-// Save login state
+// Check login state
 if (window.sessionStorage.getItem('token') !== null) {
-    userLog = true
-} else {
-    userLog = false
+    addBanner()
+    switchLink()
+    hideFilters()
+    addEdit()
 }
 
-// Switch between login and logout
-function switchLog(logState) {
-    if (logState) {
-        const logoutLink = document.createElement('li')
-        logoutLink.setAttribute('id', 'log-link')
-        logoutLink.innerHTML = "<span onclick='logoutUser()'>logout</span>"
-        parentDiv = elementLoglink.parentElement
-        parentDiv.replaceChild(logoutLink, elementLoglink)
+// Switch between login and logout function
+function switchLink() {
+    const logoutLink = document.createElement('li')
+    logoutLink.setAttribute('id', 'log-link')
+    logoutLink.innerHTML =
+        "<span onclick='logoutUser()' tabindex='0'>logout</span>"
+    let parentDiv = elementLoglink.parentElement
+    parentDiv.replaceChild(logoutLink, elementLoglink)
+}
+// Add banner "Edit mode" function
+function addBanner() {
+    let bannerContent = document.createElement('div')
+    bannerContent.classList.add('editBanner')
+    bannerContent.innerHTML = `<i class='fa-regular fa-pen-to-square'></i>
+	<p>Mode édition</p>`
+    let body = elementHeader.parentElement
+    body.insertBefore(bannerContent, elementHeader)
+}
+
+// Hide filters function (to keep space between h2 and gallery)
+function hideFilters() {
+    for (let index = 0; index < elementsFilter.length; index++) {
+        elementsFilter[index].hidden = true
     }
 }
 
-switchLog(userLog)
+// Add "Edit" button
+function addEdit() {
+    const editButton =
+        "<i href='#modal-edit' class='fa-regular fa-pen-to-square edit-gallery' tabindex='0'></i>"
+    const elementTitleProject = document.querySelector('.title-project')
+    elementTitleProject.innerHTML += editButton
+}
 
 // Logout function
 function logoutUser() {
@@ -36,21 +59,36 @@ function logoutUser() {
 
 // Get JSON Array
 getData(baseUrl + works, 0).then((data) => {
-    if (elementGallery !== null) {
-        createHTML(data)
-    }
+    createHTML(data, 'Main')
 })
 
 // Create HTML function
-function createHTML(array) {
+function createHTML(array, style) {
     let contentHTML = ''
-    array.map((e) => {
-        contentHTML += `<figure>
+    switch (style) {
+        case 'Main':
+            array.map((e) => {
+                contentHTML += `<figure>
 				<img src="${e.imageUrl}" alt="${e.title}">
 				<figcaption>${e.title}</figcaption>
 			</figure>`
-        elementGallery.innerHTML = contentHTML
-    })
+                elementGallery.innerHTML = contentHTML
+            })
+            contentHTML = ''
+            break
+        case 'Modal':
+            array.map((e) => {
+                contentHTML += `<figure id="${e.id}">
+						<img src="${e.imageUrl}" alt="${e.title}">
+						<i class="fa-solid fa-trash-can js-delete-work"></i>
+					</figure>`
+                elementModalGallery.innerHTML = contentHTML
+            })
+            contentHTML = ''
+            break
+        default:
+            break
+    }
 }
 
 // Remove class selected on all buttons
