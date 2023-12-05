@@ -106,7 +106,7 @@ elementsFilter.forEach((button, index) => {
         removeSelected()
         button.classList.add('selected')
         getData(baseUrl + works, index).then((data) => {
-            createHTML(data)
+            createHTML(data, 'Main')
         })
     })
 })

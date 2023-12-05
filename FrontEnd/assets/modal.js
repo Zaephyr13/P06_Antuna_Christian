@@ -12,6 +12,8 @@ const showModal = async function (e) {
     modal.setAttribute('aria-modal', 'true')
     modal.addEventListener('click', dismissModal)
     modal.querySelector('.fa-xmark').addEventListener('click', dismissModal)
+
+    // Return button event listener
     const returnButton = modal.querySelector('.fa-arrow-left')
     if (returnButton !== null) {
         returnButton.addEventListener('click', (e) => {
@@ -19,6 +21,7 @@ const showModal = async function (e) {
             showModal(e)
         })
     }
+    // "Ajouter une photo" button event listener
     const addButton = modal.querySelector('.add-work')
     if (addButton !== null) {
         addButton.addEventListener('click', (e) => {
@@ -38,6 +41,22 @@ const showModal = async function (e) {
         focusablesElements.forEach((e) => {
             e.tabIndex = '-1'
         })
+
+        // Bin buttons event listener
+        const binButtons = modal.querySelectorAll('.js-delete-work')
+        if (binButtons !== null) {
+            for (let index = 0; index < binButtons.length; index++) {
+                let id = binButtons[index].parentElement.id
+                binButtons[index].addEventListener('click', (e) => {
+                    e.preventDefault()
+                    stopPropagation
+                    deleteWork(id)
+                    // getData(baseUrl + works, 0).then((data) => {
+                    //     createHTML(data, 'Modal')
+                    // })
+                })
+            }
+        }
     })
 }
 
@@ -62,6 +81,17 @@ const dismissModal = function (e) {
         .querySelector('.modal-stop')
         .removeEventListener('click', stopPropagation)
     elementModalGallery.innerHTML = ''
+    if (binButtons !== null) {
+        for (let index = 0; index < binButtons.length; index++) {
+            let id = binButtons[index].parentElement.id
+            binButtons[index].removeEventListener('click', () => {
+                deleteWork(id)
+                getData(baseUrl + works, 0).then((data) => {
+                    createHTML(data, 'Modal')
+                })
+            })
+        }
+    }
     modal = null
 }
 
@@ -71,7 +101,10 @@ const stopPropagation = function (e) {
 }
 
 // Add onClick event to show up modal
-document.querySelector('.edit-gallery').addEventListener('click', showModal)
+const editButton = document.querySelector('.edit-gallery')
+if (editButton !== null) {
+    editButton.addEventListener('click', showModal)
+}
 
 // keyboard events
 window.addEventListener('keydown', function (e) {

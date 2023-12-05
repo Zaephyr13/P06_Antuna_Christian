@@ -51,12 +51,14 @@ async function getToken(email, password) {
 // Delete work from DB
 async function deleteWork(id) {
     try {
-        const res = await fetch(baseUrl + works + `/${id}`, {
+        const token = window.sessionStorage.getItem('token')
+        fetch(baseUrl + works + '/' + id, {
             method: 'DELETE',
-            Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
         })
-        return res.ok
     } catch (error) {
         console.error(`Une erreur s'est produite: ${error.message}`)
     }
