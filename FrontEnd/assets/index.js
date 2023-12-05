@@ -1,6 +1,4 @@
 // Get elements from DOM
-const elementGallery = document.querySelector('.gallery')
-const elementModalGallery = document.querySelector('.mini-gallery')
 const elementsFilter = document.querySelectorAll('.filter')
 const buttonLog = document.getElementById('loginButton')
 const formLog = document.querySelector('.login-form')
@@ -8,6 +6,8 @@ const elementEmail = document.getElementById('email')
 const elementPwd = document.getElementById('password')
 const elementLoglink = document.getElementById('log-link')
 const elementHeader = document.querySelector('header')
+let elementModalGallery = ''
+let elementGallery = ''
 
 // Check login state
 if (window.sessionStorage.getItem('token') !== null) {
@@ -46,7 +46,7 @@ function hideFilters() {
 // Add "Edit" button
 function addEdit() {
     const editButton =
-        "<i href='#modal-edit' class='fa-regular fa-pen-to-square edit-gallery' tabindex='0'></i>"
+        "<a href='#modal-edit' class='edit-gallery'><i class='fa-regular fa-pen-to-square'></i></a>"
     const elementTitleProject = document.querySelector('.title-project')
     elementTitleProject.innerHTML += editButton
 }
@@ -64,6 +64,8 @@ getData(baseUrl + works, 0).then((data) => {
 
 // Create HTML function
 function createHTML(array, style) {
+    elementModalGallery = document.querySelector('.mini-gallery')
+    elementGallery = document.querySelector('.gallery')
     let contentHTML = ''
     switch (style) {
         case 'Main':

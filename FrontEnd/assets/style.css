@@ -112,6 +112,14 @@ section {
     box-sizing: border-box;
 }
 
+input, button {
+    all: unset;
+}
+
+select {
+    border: none;
+}
+
 body {
     line-height: 1;
 }
@@ -440,6 +448,7 @@ footer nav ul {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
 }
 
 .modal-wrapper h2 {
@@ -487,6 +496,14 @@ footer nav ul {
     text-align: center;
 }
 
+.back-close {
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.back-close i,
 .close i {
     width: 24px;
     height: 24px;
@@ -505,7 +522,8 @@ footer nav ul {
     ;
 }
 
-.add-work {
+.add-work,
+.confirm-add {
     display: block;
     width: 237px;
     height: 36px;
@@ -519,5 +537,87 @@ footer nav ul {
     text-align: center;
     color: white;
     margin: 35px auto 15px auto;
+    cursor: pointer;
+}
+
+.form-work {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form-label {
+    font-family: 'Work Sans';
+    margin-top: 25px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #3D3D3D;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 420px;
+    height: 51px;
+    padding-left: 20px;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #444444;
+    box-sizing: unset;
+    box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+.add-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 420px;
+    height: 169px;
+    border-radius: 3px;
+    background-color: #E8F1F6;
+}
+
+.add-img i {
+    font-size: 72px;
+    width: 76px;
+    height: 76px;
+    padding: 9.5px 3.93px 6.88px 3.93px;
+    color: #B9C5CC;
+}
+
+.add-img p {
+    font-family: 'Work Sans';
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+#myfile {
+    display: none;
+}
+
+.button-add {
+    width: 173px;
+    height: 36px;
+    border-radius: 50px;
+    background-color: #CBD6DC;
+    color: #306685;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: center;
     cursor: pointer;
 }

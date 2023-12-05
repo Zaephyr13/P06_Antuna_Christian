@@ -48,8 +48,18 @@ async function getToken(email, password) {
     }
 }
 
-//
+// Delete work from DB
+async function deleteWork(id) {
+    try {
+        const res = await fetch(baseUrl + works + `/${id}`, {
+            method: 'DELETE',
+            Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        return res.ok
+    } catch (error) {
+        console.error(`Une erreur s'est produite: ${error.message}`)
+    }
+}
 
 // Add work to DB
-
-// Delete work from DB

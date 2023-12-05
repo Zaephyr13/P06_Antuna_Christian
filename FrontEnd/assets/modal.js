@@ -4,14 +4,28 @@ const focusableSelector = 'i, a, .js-delete-work'
 let focusablesElements = []
 
 // Show Modal function
-const showModal = function (e) {
+const showModal = async function (e) {
     e.preventDefault()
     modal = document.querySelector(e.target.getAttribute('href'))
     modal.style.display = null
     modal.removeAttribute('aria-hidden')
     modal.setAttribute('aria-modal', 'true')
     modal.addEventListener('click', dismissModal)
-    modal.querySelector('.close').addEventListener('click', dismissModal)
+    modal.querySelector('.fa-xmark').addEventListener('click', dismissModal)
+    const returnButton = modal.querySelector('.fa-arrow-left')
+    if (returnButton !== null) {
+        returnButton.addEventListener('click', (e) => {
+            dismissModal(e)
+            showModal(e)
+        })
+    }
+    const addButton = modal.querySelector('.add-work')
+    if (addButton !== null) {
+        addButton.addEventListener('click', (e) => {
+            dismissModal(e)
+            showModal(e)
+        })
+    }
     modal
         .querySelector('.modal-stop')
         .addEventListener('click', stopPropagation)
@@ -20,7 +34,7 @@ const showModal = function (e) {
         focusablesElements = Array.from(
             modal.querySelectorAll(focusableSelector)
         )
-        // Setting tabIndex to active focusable on all tab elements
+        // Setting tabIndex to active focusable on all "tab-able" elements
         focusablesElements.forEach((e) => {
             e.tabIndex = '-1'
         })
@@ -35,7 +49,15 @@ const dismissModal = function (e) {
     modal.setAttribute('aria-hidden', 'true')
     modal.removeAttribute('aria-modal')
     modal.removeEventListener('click', dismissModal)
-    modal.querySelector('.close').removeEventListener('click', dismissModal)
+    modal.querySelector('.fa-xmark').removeEventListener('click', dismissModal)
+    const returnButton = modal.querySelector('.fa-arrow-left')
+    if (returnButton !== null) {
+        returnButton.removeEventListener('click', showModal)
+    }
+    const addButton = modal.querySelector('.add-work')
+    if (addButton !== null) {
+        addButton.removeEventListener('click', showModal)
+    }
     modal
         .querySelector('.modal-stop')
         .removeEventListener('click', stopPropagation)
