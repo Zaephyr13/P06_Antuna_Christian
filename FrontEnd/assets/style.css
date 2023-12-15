@@ -112,7 +112,8 @@ section {
     box-sizing: border-box;
 }
 
-input, button {
+input,
+button {
     all: unset;
 }
 
@@ -586,7 +587,8 @@ footer nav ul {
     background-color: #E8F1F6;
 }
 
-.add-img i {
+.add-img i,
+.add-img img {
     font-size: 72px;
     width: 76px;
     height: 76px;

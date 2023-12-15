@@ -6,6 +6,7 @@ const categories = '/categories'
 const login = '/users/login'
 
 let dataSort = []
+let dataCat = []
 
 // Get DB from API + Sort function
 async function getData(url, id) {
@@ -58,6 +59,10 @@ async function deleteWork(id) {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
+        }).then((res) => {
+            if (res.status === 204) {
+                alert('Supprimé')
+            }
         })
     } catch (error) {
         console.error(`Une erreur s'est produite: ${error.message}`)
@@ -65,3 +70,22 @@ async function deleteWork(id) {
 }
 
 // Add work to DB
+async function addWork(bodyData) {
+    try {
+        await fetch('http://localhost:5678/api/works/', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: bodyData,
+        }).then((res) => res.json())
+    } catch (error) {
+        console.error(`Une erreur s'est produite: ${error.message}`)
+    }
+}
+
+// Get categories from DB
+async function getCategory() {
+    const response = await fetch('http://localhost:5678/api/categories')
+    dataCat = await response.json()
+}

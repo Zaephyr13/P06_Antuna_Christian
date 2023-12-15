@@ -44,22 +44,19 @@
 				<span class="back-close"><i href="#modal-edit" class="fa-solid fa-arrow-left"></i><i
 						class="fa-solid fa-xmark"></i></span>
 				<h2 id="modal-title">Ajout photo</h2>
-				<form class="form-work">
+				<form class="form-work" method="post" enctype="multipart/form-data">
 					<div class="add-img">
 						<!-- <img src="https://fontawesome.com/icons/image?f=classic&s=regular&sz=2xl" alt="Importez une image"> -->
 						<i class="fa-regular fa-image"></i>
 						<label class="button-add" for="myfile">+ Ajouter photo</label>
-						<input type="file" id="myfile" name="myfile">
+						<input type="file" id="myfile" name="myfile" accept="image/jpg, image/png">
 						<p>jpg, png : 4mo max</p>
 					</div>
 					<label class="form-label" for="title">Titre</label>
 					<input class="form-input" type="text" id="title" name="title">
 					<label class="form-label" for="category">Catégorie</label>
-					<select class="form-input" id="category" name="category">
-						<option value="none"></option>
-						<option value="1">Objets</option>
-						<option value="2">Appartements</option>
-						<option value="3">Hotels & restaurants</option>
+					<select id='select-input' class="form-input" id="category" name="category">
+
 					</select>
 				</form>
 				<div class="line-button">
