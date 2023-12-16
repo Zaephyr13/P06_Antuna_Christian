@@ -45,9 +45,10 @@
 						class="fa-solid fa-xmark"></i></span>
 				<h2 id="modal-title">Ajout photo</h2>
 				<form class="form-work" method="post" enctype="multipart/form-data">
+					<!--enctype="multipart/form-data"-->
 					<div class="add-img">
-						<!-- <img src="https://fontawesome.com/icons/image?f=classic&s=regular&sz=2xl" alt="Importez une image"> -->
-						<i class="fa-regular fa-image"></i>
+						<img class='js-imagePrev' src="#" alt="Fichier selectionné" style="display: none;">
+						<i class="fa-regular fa-image js-imagePH"></i>
 						<label class="button-add" for="myfile">+ Ajouter photo</label>
 						<input type="file" id="myfile" name="myfile" accept="image/jpg, image/png">
 						<p>jpg, png : 4mo max</p>
@@ -56,13 +57,12 @@
 					<input class="form-input" type="text" id="title" name="title">
 					<label class="form-label" for="category">Catégorie</label>
 					<select id='select-input' class="form-input" id="category" name="category">
-
 					</select>
+					<div class="line-button">
+						<div class="separator-line"></div>
+						<input type="submit" class="confirm-add" value="Valider"></input>
+					</div>
 				</form>
-				<div class="line-button">
-					<div class="separator-line"></div>
-					<a href="#" class="confirm-add">Valider</a>
-				</div>
 			</div>
 	</aside>
 	<!-- End of Modals part -->
@@ -116,7 +116,7 @@
 				<input type="email" name="email" id="email">
 				<label for="message">Message</label>
 				<textarea name="message" id="message" cols="30" rows="10"></textarea>
-				<input type="submit" value="Envoyer">
+				<input type="submit" class="send-form" value="Envoyer">
 			</form>
 		</section>
 	</main>

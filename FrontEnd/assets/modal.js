@@ -2,6 +2,9 @@
 let modal = null //contain the active modal node
 const focusableSelector = 'i, a, .js-delete-work'
 let focusablesElements = []
+let selectedFile = null
+let fullFillForm = false
+let formData = null
 
 // Show Modal function
 const showModal = async function (e) {
@@ -35,7 +38,13 @@ const dismissModal = function (e) {
         .querySelector('.modal-stop')
         .removeEventListener('click', stopPropagation)
     elementModalGallery.innerHTML = ''
+    clearSelected()
     modal = null
+}
+
+// Stop Propagation function
+const stopPropagation = function (e) {
+    e.stopPropagation()
 }
 
 // Add onClick event to show up modal
@@ -78,20 +87,102 @@ addButton.addEventListener('click', (e) => {
 // Bin buttons event listener function
 function addEventDelete() {
     const binButtons = modal.querySelectorAll('.js-delete-work')
-    if (binButtons !== null) {
-        for (let index = 0; index < binButtons.length; index++) {
-            let id = binButtons[index].parentElement.id
-            binButtons[index].addEventListener('click', (e) => {
-                deleteWork(id)
-                getData(baseUrl + works, 0).then((data) => {
-                    elementModalGallery.innerHTML = ''
-                    createHTML(data, 'Modal')
-                    elementGallery.innerHTML = ''
-                    createHTML(data, 'Main')
-                    addFocusable()
-                })
+    if (binButtons === null) return
+    for (let index = 0; index < binButtons.length; index++) {
+        let id = binButtons[index].parentElement.id
+        binButtons[index].addEventListener('click', (e) => {
+            deleteWork(id)
+            getData(baseUrl + works, 0).then((data) => {
+                elementModalGallery.innerHTML = ''
+                createHTML(data, 'Modal')
+                elementGallery.innerHTML = ''
+                createHTML(data, 'Main')
+                addFocusable()
             })
-        }
+        })
+    }
+}
+
+// Display selected file
+const fileElement = document.querySelector('#myfile')
+const imageElement = document.querySelector('.js-imagePrev')
+const imagePlaceholder = document.querySelector('.js-imagePH')
+const addImageButton = document.querySelector('.button-add')
+const fileRequiermentElement = document.querySelector('.add-img p')
+fileElement.addEventListener('change', function (e) {
+    e.preventDefault()
+    selectedFile = fileElement.files[0]
+    if (selectedFile) {
+        imageElement.src = URL.createObjectURL(selectedFile)
+        imageElement.style.display = null
+        imagePlaceholder.style.display = 'none'
+        fileRequiermentElement.style.display = 'none'
+        addImageButton.style.display = 'none'
+    }
+})
+
+// Clear selected function
+function clearSelected() {
+    if (selectedFile) {
+        imageElement.style.display = 'none'
+        imagePlaceholder.style.display = null
+        fileRequiermentElement.style.display = null
+        addImageButton.style.display = null
+        selectedFile = null
+        workTitle = ''
+        selectedcategory = 'none'
+        formData = null
+        categorySelect.value = 'none'
+        titleElement.value = ''
+        fileElement.files = null
+    }
+}
+
+// Confirm add button init
+const confirmButton = document.querySelector('.confirm-add')
+confirmButton.classList.add('disabled')
+confirmButton.disabled = true
+confirmButton.addEventListener('click', (e) => {
+    addWork(e, formData)
+    clearSelected()
+})
+
+// Add listener "onchange" for form element
+const addWorkForm = document.querySelector('.form-work')
+const titleElement = document.querySelector('#title')
+addWorkForm.addEventListener('change', () => {
+    fullFillForm = isFormFilled()
+    console.log(fullFillForm)
+    // Confirm add button validation
+    if (fullFillForm) {
+        createFormData()
+        confirmButton.classList.remove('disabled')
+        confirmButton.disabled = false
+    } else {
+        confirmButton.classList.add('disabled')
+        confirmButton.disabled = true
+        formData = null
+    }
+})
+
+// Create form data function
+function createFormData() {
+    formData = new FormData()
+    formData.append('image', fileElement.files[0])
+    formData.append('title', titleElement.value)
+    formData.append('category', categorySelect.value)
+}
+
+// Check filled form function
+function isFormFilled() {
+    const isImageSelected = fileElement.files.length > 0
+    const isTitleFilled = titleElement.value.trim() !== ''
+    const isCategorySelected =
+        categorySelect.value !== '' && categorySelect.value !== 'none'
+    if (isImageSelected && isTitleFilled && isCategorySelected) {
+        return true
+    } else {
+        return false
     }
 }
 
@@ -102,11 +193,6 @@ function addFocusable() {
     focusablesElements.forEach((e) => {
         e.tabIndex = '-1'
     })
-}
-
-// Stop Propagation function
-const stopPropagation = function (e) {
-    e.stopPropagation()
 }
 
 // keyboard events

@@ -54,7 +54,7 @@ function addEdit() {
 // Logout function
 function logoutUser() {
     window.sessionStorage.removeItem('token')
-    window.location.href = 'http://localhost:5500/FrontEnd/index.html'
+    window.location.href = './index.html'
 }
 
 // Get JSON Array

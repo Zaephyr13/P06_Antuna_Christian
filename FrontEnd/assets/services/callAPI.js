@@ -70,9 +70,11 @@ async function deleteWork(id) {
 }
 
 // Add work to DB
-async function addWork(bodyData) {
+async function addWork(e, bodyData) {
+    e.preventDefault()
     try {
-        await fetch('http://localhost:5678/api/works/', {
+        const token = window.sessionStorage.getItem('token')
+        await fetch('http://localhost:5678/api/works', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,

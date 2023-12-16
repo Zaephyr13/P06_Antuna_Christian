@@ -34,7 +34,7 @@ if (buttonLog !== null) {
             if (status === true) {
                 flag = 0
                 window.location.href =
-                    'http://localhost:5500/FrontEnd/index.html'
+                    './index.html'
             } else if (flag === 0) {
                 const pElement = document.createElement('p')
                 pElement.classList.add('incorrect')
