@@ -61,7 +61,7 @@ async function deleteWork(id) {
             },
         }).then((res) => {
             if (res.status === 204) {
-                alert('Supprimé')
+                alert('Travail Supprimé')
             }
         })
     } catch (error) {
@@ -80,7 +80,11 @@ async function addWork(e, bodyData) {
                 Authorization: `Bearer ${token}`,
             },
             body: bodyData,
-        }).then((res) => res.json())
+        }).then((res) => {
+            if (res.status === 201) {
+                alert('Travail Ajouté')
+            }
+        })
     } catch (error) {
         console.error(`Une erreur s'est produite: ${error.message}`)
     }

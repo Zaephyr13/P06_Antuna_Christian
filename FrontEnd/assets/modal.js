@@ -98,6 +98,7 @@ function addEventDelete() {
                 elementGallery.innerHTML = ''
                 createHTML(data, 'Main')
                 addFocusable()
+                addEventDelete()
             })
         })
     }
