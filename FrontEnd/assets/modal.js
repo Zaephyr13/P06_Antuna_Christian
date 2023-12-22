@@ -144,7 +144,12 @@ const confirmButton = document.querySelector('.confirm-add')
 confirmButton.classList.add('disabled')
 confirmButton.disabled = true
 confirmButton.addEventListener('click', (e) => {
-    addWork(e, formData)
+    addWork(e, formData).then(() => {
+        getData(baseUrl + works, 0).then((data) => {
+            elementGallery.innerHTML = ''
+            createHTML(data, 'Main')
+        })
+    })
     clearSelected()
 })
 
