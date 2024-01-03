@@ -1,5 +1,5 @@
 // Get elements from DOM
-const elementsFilter = document.querySelectorAll('.filter')
+const elementFilters = document.querySelector('.filters')
 const buttonLog = document.getElementById('loginButton')
 const formLog = document.querySelector('.login-form')
 const elementEmail = document.getElementById('email')
@@ -8,14 +8,6 @@ const elementLoglink = document.getElementById('log-link')
 const elementHeader = document.querySelector('header')
 let elementModalGallery = ''
 let elementGallery = ''
-
-// Check login state
-if (window.sessionStorage.getItem('token') !== null) {
-    addBanner()
-    switchLink()
-    hideFilters()
-    addEdit()
-}
 
 // Switch between login and logout function
 function switchLink() {
@@ -38,6 +30,7 @@ function addBanner() {
 
 // Hide filters function (to keep space between h2 and gallery)
 function hideFilters() {
+    const elementsFilter = document.querySelectorAll('.filter')
     for (let index = 0; index < elementsFilter.length; index++) {
         elementsFilter[index].hidden = true
     }
@@ -56,11 +49,6 @@ function logoutUser() {
     window.sessionStorage.removeItem('token')
     window.location.href = './index.html'
 }
-
-// Get JSON Array
-getData(baseUrl + works, 0).then((data) => {
-    createHTML(data, 'Main')
-})
 
 // Create HTML function
 function createHTML(array, style) {
@@ -93,20 +81,52 @@ function createHTML(array, style) {
     }
 }
 
+// Create filters function
+async function createFilters() {
+    if (window.sessionStorage.getItem('token') !== null) return
+    getCategory()
+        .then(() => {
+            for (let index = 0; index < dataCat.length; index++) {
+                let filterElement = document.createElement('div')
+                filterElement.classList.add('filter')
+                filterElement.innerText = dataCat[index].name
+                elementFilters.appendChild(filterElement)
+            }
+        })
+        .then(() => {
+            // Add listeners to filters
+            const elementsFilter = document.querySelectorAll('.filter')
+            elementsFilter.forEach((button, index) => {
+                button.addEventListener('click', function (e) {
+                    removeSelected()
+                    button.classList.add('selected')
+                    getData(baseUrl + works, index).then((data) => {
+                        createHTML(data, 'Main')
+                    })
+                })
+            })
+        })
+}
 // Remove class selected on all buttons
 function removeSelected() {
+    const elementsFilter = document.querySelectorAll('.filter')
     elementsFilter.forEach((button) => {
         button.classList.remove('selected')
     })
 }
 
-// Add listeners to filters
-elementsFilter.forEach((button, index) => {
-    button.addEventListener('click', function (e) {
-        removeSelected()
-        button.classList.add('selected')
-        getData(baseUrl + works, index).then((data) => {
-            createHTML(data, 'Main')
-        })
-    })
+// Code
+
+// Get and display Data and filters on loading
+getData(baseUrl + works, 0).then((data) => {
+    createHTML(data, 'Main')
+    createFilters()
 })
+
+// Check login state
+if (window.sessionStorage.getItem('token') !== null) {
+    addBanner()
+    switchLink()
+    hideFilters()
+    addEdit()
+}
